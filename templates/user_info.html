@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Information</title>
+    <style>
+      * {
+        font-family: Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        padding: 16px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        background-color: indigo;
+        font-weight: bold;
+        color: white;
+      }
+      th,
+      td {
+        border: 1px solid black;
+        padding: 16px;
+        text-align: left;
+      }
+      td {
+        padding: 16px 32px;
+      }
+      th.tomato-background {
+        background-color: tomato;
+        color: white;
+      }
+      header {
+        background-color: indigo;
+        color: white;
+        text-align: center;
+        padding: 16px;
+        font-size: 12px;
+      }
+      footer {
+        text-align: center;
+        margin-top: 16px;
+        color: #9aa5b1;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>User Information</h1>
+    </header>
+    <table>
+      <tr>
+        <th>User ID</th>
+        <td>{ user_id }</td>
+      </tr>
+      <tr>
+        <th>Username</th>
+        <td>{ username }</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{ email }</td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td>{ phone }</td>
+      </tr>
+      <tr>
+        <th>Verified</th>
+        <td>{ is_verified }</td>
+      </tr>
+      <tr>
+        <th>Created At</th>
+        <td>{ created_at }</td>
+      </tr>
+    </table>
+
+    <footer>
+      <p>Printed at { printed_at }</p>
+    </footer>
+  </body>
+</html>
