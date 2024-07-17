@@ -1,16 +1,15 @@
-from sys import prefix
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from core.database import engine, Base
 from routers.v1 import users as users_v1, posts as posts_v1
 from routers.v2 import users as users_v2, posts as posts_v2
 
 from auth import auth, otp, reset_password
-from middlewares.logger import LoggerMiddleware
 from schemas.v1.users import ReadUser
 from core.dependencies import user_dependency
 from core.metadata import tags_metadata
 from jobs.scheduler import scheduler
 from caching.redis import get_redis_client
+from middlewares.logger import log_requests
 
 Base.metadata.create_all(bind=engine)
 
@@ -26,6 +25,9 @@ scheduler.start()
 # Redis client
 redis_client = get_redis_client()
 
+# Middleware to log each request
+app.middleware("http")(log_requests)
+
 
 # Function to return the Redis client
 def get_redis_client():
@@ -40,9 +42,6 @@ app.include_router(posts_v2.router, prefix="/v2")
 app.include_router(auth.router)
 app.include_router(otp.router)
 app.include_router(reset_password.router)
-
-# Logger Middleware
-app.add_middleware(LoggerMiddleware)
 
 
 @app.get("/protected", response_model=ReadUser)
