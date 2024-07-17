@@ -1,9 +1,12 @@
+from sys import prefix
 from fastapi import FastAPI
 from core.database import engine, Base
-from routers import users, posts
+from routers.v1 import users as users_v1, posts as posts_v1
+from routers.v2 import users as users_v2, posts as posts_v2
+
 from auth import auth, otp, reset_password
 from middlewares.logger import LoggerMiddleware
-from schemas.users import ReadUser
+from schemas.v1.users import ReadUser
 from core.dependencies import user_dependency
 from core.metadata import tags_metadata
 from jobs.scheduler import scheduler
@@ -11,7 +14,11 @@ from caching.redis import get_redis_client
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Users Management API", openapi_tags=tags_metadata)
+app = FastAPI(
+    title="Users Management API",
+    description="This is a simple API to manage users",
+    version="1.0.0",
+)
 
 # Start the scheduler
 scheduler.start()
@@ -26,11 +33,13 @@ def get_redis_client():
 
 
 # Add routers
+app.include_router(users_v1.router, prefix="/v1")
+app.include_router(posts_v1.router, prefix="/v1")
+app.include_router(users_v2.router, prefix="/v2")
+app.include_router(posts_v2.router, prefix="/v2")
 app.include_router(auth.router)
 app.include_router(otp.router)
 app.include_router(reset_password.router)
-app.include_router(users.router)
-app.include_router(posts.router)
 
 # Logger Middleware
 app.add_middleware(LoggerMiddleware)

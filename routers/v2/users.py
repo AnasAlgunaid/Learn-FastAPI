@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi import status
 from pydantic import PositiveInt
-import schemas.users as users_schemas
+import schemas.v1.users as users_schemas
 import controllers.users as users_controller
 from core.dependencies import db_dependency, user_dependency
 import redis
@@ -9,7 +9,7 @@ from caching.redis import get_redis_client
 
 router = APIRouter(
     prefix="/users",
-    tags=["Users"],
+    tags=["Users v2"],
 )
 
 

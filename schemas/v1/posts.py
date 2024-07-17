@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from .users import ReadUser
 
+
 class CreatePost(BaseModel):
     title: str
     content: str

@@ -1,7 +1,8 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 import models.posts as posts_models
-import schemas.posts as posts_schemas
+import schemas.v1.posts as posts_schemas
+
 
 # Get all posts
 def get_posts(db: Session):

@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from pydantic import PositiveInt
 import models.users as users_models
-import schemas.users as users_schemas
+import schemas.v1.users as users_schemas
 from core.hashing import get_password_hash
 from datetime import datetime
 from fastapi.responses import FileResponse
