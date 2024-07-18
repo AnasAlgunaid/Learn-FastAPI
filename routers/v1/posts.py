@@ -19,6 +19,4 @@ def get_posts(db: db_dependency):
 def create_post(
     post: posts_schemas.CreatePost, db: db_dependency, current_user: user_dependency
 ):
-    if not current_user:
-        return {"msg": "Unauthorized"}
     return posts_controllers.create_post(post, db, current_user.user_id)

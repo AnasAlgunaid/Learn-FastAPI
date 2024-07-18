@@ -6,6 +6,7 @@ import schemas.v1.posts as posts_schemas
 
 # Get all posts
 def get_posts(db: Session):
+    """Get all posts from the database"""
     try:
         res = db.query(posts_models.Post).all()
         if res:
@@ -19,6 +20,7 @@ def get_posts(db: Session):
 
 # Get a post by id
 def create_post(post: posts_schemas.CreatePost, db: Session, current_user: int):
+    """Create a new post in the database"""
     try:
         new_post = posts_models.Post(
             title=post.title,

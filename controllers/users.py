@@ -17,6 +17,7 @@ def get_users(
     db: Session,
     limit: PositiveInt,
 ):
+    """Get all users from the database"""
     res = db.query(users_models.User).limit(limit).all()
     if res:
         return res
@@ -49,6 +50,7 @@ def create_user(
     user: users_schemas.CreateUser,
     db: Session,
 ):
+    """Create a new user in the database"""
     try:
         new_user = users_models.User(
             name=user.name,
@@ -73,6 +75,7 @@ def update_user(
     db: Session,
     redis_client: redis.Redis,
 ):
+    """Update the user with the given user_id"""
     # Update the user with the given user_id
     try:
         user = (
@@ -109,6 +112,7 @@ def update_user(
 
 
 def delete_user(user_id: int, db: Session, redis_client: redis.Redis):
+    """Delete the user with the given user_id"""
     try:
         # Attempt to delete the user with the given user_id
         result = (
@@ -136,6 +140,7 @@ def delete_user(user_id: int, db: Session, redis_client: redis.Redis):
 
 
 async def generate_pdf(user_id: int, db: Session):
+    """Generate a PDF file containing the user information"""
     # Get the user information
     user = get_user(user_id, db)
 
